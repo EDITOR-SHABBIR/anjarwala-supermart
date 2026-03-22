@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Anjarwala Supermart — Karachi</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#f0a500;--gold2:#ffd166;--glow:rgba(240,165,0,.4);--dark:#05050a;--border:rgba(255,255,255,.08);--white:#f0eeea;--muted:#666;--red:#ff4560;--green:#00e096}
+html{scroll-behavior:smooth;background:var(--dark)}
+body{font-family:'Outfit','Arial',sans-serif;background:var(--dark);color:var(--white);overflow-x:hidden;cursor:none}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#000}::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
+#cur{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 12px var(--glow);transition:transform .08s}
+#cur-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(240,165,0,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+#bgc{position:fixed;inset:0;z-index:0;pointer-events:none}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:68px;background:rgba(5,5,10,.85);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.logo{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:1.6rem;letter-spacing:4px;color:var(--white);text-decoration:none}.logo span{color:var(--gold)}
+.nav-links{display:flex;gap:30px;list-style:none}.nav-links a{color:rgba(255,255,255,.4);text-decoration:none;font-size:.78rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;transition:color .25s}.nav-links a:hover{color:var(--gold)}
+.nav-r{display:flex;align-items:center;gap:12px}
+.cart-btn{background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--white);padding:8px 18px;border-radius:100px;font-size:.78rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .25s;font-family:inherit}.cart-btn:hover{border-color:var(--gold);color:var(--gold)}
+.cbadge{background:var(--gold);color:#000;font-size:.65rem;font-weight:900;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.wa-btn{background:var(--gold);color:#000;padding:9px 22px;border-radius:100px;font-size:.78rem;font-weight:800;text-decoration:none;letter-spacing:.5px;text-transform:uppercase;transition:all .25s}.wa-btn:hover{background:var(--gold2);box-shadow:0 0 30px var(--glow)}
+.hero{min-height:100vh;position:relative;z-index:1;display:flex;align-items:center;padding:110px 5% 80px;overflow:hidden}
+.hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 70% 50%,rgba(240,165,0,.06),transparent 65%);pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:640px}
+.h-tag{display:inline-flex;align-items:center;gap:10px;background:rgba(240,165,0,.08);border:1px solid rgba(240,165,0,.25);color:var(--gold);padding:8px 18px;border-radius:100px;font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:28px}
+.h-dot{width:7px;height:7px;background:var(--gold);border-radius:50%;animation:blink 1.8s infinite}
+@keyframes blink{0%,100%{box-shadow:0 0 0 0 var(--glow)}60%{box-shadow:0 0 0 10px rgba(240,165,0,0)}}
+h1{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:clamp(4rem,10vw,8.5rem);line-height:.92;letter-spacing:2px;margin-bottom:24px}
+.h1a{color:transparent;-webkit-text-stroke:1.5px rgba(240,165,0,.5);display:block}
+.h1b{color:var(--white);display:block}
+.h1c{color:var(--gold);display:block;text-shadow:0 0 60px rgba(240,165,0,.3)}
+.h-sub{color:rgba(255,255,255,.4);font-size:1rem;line-height:1.85;max-width:460px;margin-bottom:40px;font-weight:300}
+.h-btns{display:flex;gap:14px;margin-bottom:52px;flex-wrap:wrap}
+.btn-gold{background:var(--gold);color:#000;padding:15px 36px;border-radius:100px;font-size:.88rem;font-weight:800;text-decoration:none;border:none;cursor:pointer;text-transform:uppercase;letter-spacing:1px;transition:all .3s;box-shadow:0 0 36px rgba(240,165,0,.22);position:relative;overflow:hidden;font-family:inherit}.btn-gold::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);transition:left .55s}.btn-gold:hover::after{left:100%}.btn-gold:hover{background:var(--gold2);box-shadow:0 0 55px var(--glow);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--white);padding:15px 36px;border-radius:100px;font-size:.88rem;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.12);cursor:pointer;text-transform:uppercase;letter-spacing:1px;transition:all .3s;font-family:inherit}.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+.h-stats{display:flex;gap:36px;flex-wrap:wrap}
+.hstat{border-left:2px solid rgba(240,165,0,.3);padding-left:16px}
+.hstat-n{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:2.5rem;color:var(--gold);line-height:1;letter-spacing:2px}
+.hstat-l{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-top:3px}
+.hero-3d{position:absolute;right:4%;top:50%;transform:translateY(-50%);width:420px;height:480px;perspective:900px;pointer-events:none;z-index:2}
+.scene{position:relative;width:100%;height:100%;transform-style:preserve-3d}
+.fcard{position:absolute;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.1);box-shadow:0 30px 80px rgba(0,0,0,.8)}.fcard img{width:100%;height:100%;object-fit:cover;display:block}
+.fcard-1{width:250px;height:290px;top:60px;left:90px;animation:float1 7s ease-in-out infinite;filter:brightness(.75)}
+.fcard-2{width:170px;height:210px;top:10px;left:0;animation:float2 9s ease-in-out infinite;filter:brightness(.55)}
+.fcard-3{width:145px;height:175px;bottom:30px;right:10px;animation:float3 11s ease-in-out infinite;filter:brightness(.45)}
+.fcard-glow{position:absolute;width:280px;height:280px;top:50%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(240,165,0,.16),transparent 70%);border-radius:50%;animation:gp 4s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translateY(0) rotateY(-10deg) rotateX(5deg)}50%{transform:translateY(-22px) rotateY(-14deg) rotateX(9deg)}}
+@keyframes float2{0%,100%{transform:translateY(0) rotateY(8deg) rotateX(-3deg)}50%{transform:translateY(-16px) rotateY(12deg) rotateX(-7deg)}}
+@keyframes float3{0%,100%{transform:translateY(0) rotateY(-6deg) rotateX(4deg)}50%{transform:translateY(-28px) rotateY(-10deg) rotateX(7deg)}}
+@keyframes gp{0%,100%{opacity:.6;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}}
+.ticker{position:relative;z-index:2;background:var(--gold);padding:13px 0;overflow:hidden}
+.t-track{display:flex;gap:60px;animation:tick 24s linear infinite;white-space:nowrap}.t-track span{font-size:.76rem;font-weight:800;color:#000;letter-spacing:1.5px;text-transform:uppercase;flex-shrink:0}.t-track span::before{content:'◆  ';font-size:.52rem}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+section{position:relative;z-index:1;padding:96px 5%}
+.slbl{font-size:.68rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:12px}
+.stit{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:clamp(2.6rem,5vw,4.5rem);letter-spacing:2px;line-height:.95;margin-bottom:14px}
+.ssub{color:rgba(255,255,255,.35);font-size:.95rem;line-height:1.85;max-width:480px;font-weight:300}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:50px;flex-wrap:wrap;gap:16px}
+.cats-sec{background:linear-gradient(180deg,var(--dark) 0%,#080810 100%)}
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.cat-card{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:.83;cursor:pointer;border:1px solid var(--border);transition:all .45s cubic-bezier(.23,1,.32,1);transform-style:preserve-3d}.cat-card:hover{transform:translateY(-13px) rotateX(5deg) rotateY(-3deg) scale(1.03);border-color:rgba(240,165,0,.45);box-shadow:0 50px 90px rgba(0,0,0,.85),0 0 50px rgba(240,165,0,.1)}.cat-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s,filter .45s;filter:brightness(.4) saturate(.6)}.cat-card:hover img{transform:scale(1.1);filter:brightness(.55) saturate(1.1)}
+.cat-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.9) 0%,rgba(0,0,0,.15) 55%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:22px}
+.cat-name{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:1.45rem;letter-spacing:2px;margin-bottom:4px}.cat-sub{font-size:.7rem;color:var(--gold);font-weight:600;letter-spacing:1.5px}
+.cat-arr{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;background:rgba(240,165,0,0);border:1px solid rgba(240,165,0,0);display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:all .35s;color:var(--gold)}.cat-card:hover .cat-arr{background:var(--gold);border-color:var(--gold);color:#000;transform:rotate(45deg)}
+.feats-sec{background:linear-gradient(135deg,#070710 0%,#0c0c18 50%,#070710 100%);border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:relative;z-index:1}
+.feats-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.feat{padding:44px 30px;border-right:1px solid var(--border);transition:all .4s;position:relative;overflow:hidden;cursor:default}.feat:last-child{border-right:none}.feat::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform .5s}.feat:hover::after{transform:scaleX(1)}.feat:hover{background:rgba(240,165,0,.025)}
+.feat-ico{width:48px;height:48px;border-radius:14px;background:rgba(240,165,0,.08);border:1px solid rgba(240,165,0,.18);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:18px;transition:all .4s}.feat:hover .feat-ico{background:rgba(240,165,0,.15);border-color:rgba(240,165,0,.4);transform:scale(1.1)}
+.feat-t{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:1.1rem;letter-spacing:1.5px;margin-bottom:8px}.feat-d{font-size:.78rem;color:rgba(255,255,255,.3);line-height:1.75}
+.prods-sec{background:var(--dark)}
+.frow{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:44px}
+.ftag{background:rgba(255,255,255,.035);border:1px solid var(--border);color:rgba(255,255,255,.4);padding:9px 20px;border-radius:100px;font-size:.74rem;font-weight:600;letter-spacing:.5px;cursor:pointer;transition:all .22s;text-transform:uppercase;font-family:inherit}.ftag:hover{color:var(--white);border-color:rgba(255,255,255,.25)}.ftag.on{background:var(--gold);color:#000;border-color:var(--gold);font-weight:800}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px}
+.pcard{background:rgba(255,255,255,.035);border:1px solid var(--border);border-radius:20px;overflow:hidden;cursor:pointer;transition:transform .4s cubic-bezier(.23,1,.32,1),box-shadow .4s,border-color .3s;transform-style:preserve-3d;position:relative;will-change:transform}.pcard::before{content:'';position:absolute;inset:0;border-radius:20px;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(240,165,0,.07),transparent 55%);opacity:0;transition:opacity .3s;pointer-events:none;z-index:1}.pcard:hover::before{opacity:1}.pcard:hover{border-color:rgba(240,165,0,.35);box-shadow:0 35px 80px rgba(0,0,0,.75),0 0 35px rgba(240,165,0,.07)}
+.pimg{height:200px;background:#0c0c14;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;border-bottom:1px solid var(--border)}.pimg img{max-width:100%;max-height:100%;object-fit:contain;padding:20px;transition:transform .5s cubic-bezier(.23,1,.32,1);filter:drop-shadow(0 10px 30px rgba(0,0,0,.6))}.pcard:hover .pimg img{transform:scale(1.12) translateY(-5px)}
+.pimg-glow{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:55%;height:50px;background:radial-gradient(ellipse,rgba(240,165,0,.16),transparent 70%);pointer-events:none;opacity:0;transition:opacity .4s}.pcard:hover .pimg-glow{opacity:1}
+.pbadges{position:absolute;top:12px;left:12px;display:flex;flex-direction:column;gap:5px;z-index:2}.pbadge{padding:4px 11px;border-radius:100px;font-size:.6rem;font-weight:900;letter-spacing:1px;text-transform:uppercase}.pbadge.hot{background:var(--red);color:#fff}.pbadge.new{background:var(--green);color:#000}.pbadge.sale{background:var(--gold);color:#000}.pbadge.best-seller{background:#7c3aed;color:#fff}
+.pbody{padding:20px 22px 22px}.pbrand{font-size:.67rem;color:var(--gold);text-transform:uppercase;letter-spacing:3px;font-weight:700;margin-bottom:5px}.pname{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:1.2rem;letter-spacing:1.5px;line-height:1.15;margin-bottom:7px}.pspec{font-size:.76rem;color:rgba(255,255,255,.3);line-height:1.65;margin-bottom:18px}
+.pfoot{display:flex;align-items:center;justify-content:space-between;gap:8px}.pprice{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:1.4rem;letter-spacing:1px}.pprice .rs{font-family:'Outfit','Arial',sans-serif;font-size:.7rem;color:var(--muted);font-weight:400;margin-right:2px}
+.padd{background:rgba(240,165,0,.1);border:1px solid rgba(240,165,0,.28);color:var(--gold);padding:9px 16px;border-radius:100px;font-size:.72rem;font-weight:700;letter-spacing:.5px;cursor:pointer;transition:all .22s;text-transform:uppercase;white-space:nowrap;font-family:inherit}.padd:hover{background:var(--gold);color:#000;border-color:var(--gold);transform:scale(1.05)}
+.brands-sec{background:#070710}
+.brand-wrap{display:flex;gap:12px;flex-wrap:wrap}.bchip{background:rgba(255,255,255,.03);border:1px solid var(--border);padding:13px 26px;border-radius:12px;font-weight:700;font-size:.88rem;letter-spacing:.5px;color:rgba(255,255,255,.25);transition:all .3s;position:relative;overflow:hidden;cursor:default}.bchip::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(240,165,0,.08),transparent);opacity:0;transition:opacity .3s}.bchip:hover::before{opacity:1}.bchip:hover{color:var(--white);border-color:rgba(240,165,0,.3);transform:translateY(-4px)}
+.contact-sec{background:linear-gradient(180deg,#070710 0%,#0a0a16 100%)}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.ci-item{margin-bottom:28px}.ci-lbl{font-size:.67rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:7px}.ci-val{font-size:.95rem;line-height:1.75;color:rgba(255,255,255,.65)}
+.cform-wrap{background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:24px;padding:36px;position:relative;overflow:hidden}.cform-wrap::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(240,165,0,.07),transparent 70%);pointer-events:none}
+.cform-t{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:1.65rem;letter-spacing:2px;margin-bottom:24px}
+.fg2-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fgrp{margin-bottom:16px}.fgrp label{display:block;font-size:.67rem;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.35);font-weight:600;margin-bottom:6px}.fgrp input,.fgrp textarea,.fgrp select{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);color:var(--white);padding:12px 15px;border-radius:12px;font-family:inherit;font-size:.88rem;outline:none;transition:all .25s;resize:none}.fgrp input:focus,.fgrp textarea:focus,.fgrp select:focus{border-color:rgba(240,165,0,.5);background:rgba(240,165,0,.03)}.fgrp select option{background:#0d0d14}
+.csub{width:100%;background:var(--gold);color:#000;padding:14px;border-radius:13px;font-family:'Bebas Neue','Arial Black',sans-serif;font-size:1.1rem;letter-spacing:2px;border:none;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}.csub::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transition:left .55s}.csub:hover::after{left:100%}.csub:hover{background:var(--gold2);box-shadow:0 0 50px var(--glow);transform:translateY(-2px)}
+#modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:5000;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(18px)}#modal-bg.open{display:flex}
+.mbox{background:linear-gradient(135deg,#111118,#0e0e16);border:1px solid rgba(255,255,255,.09);border-radius:26px;max-width:860px;width:100%;max-height:92vh;overflow-y:auto;display:grid;grid-template-columns:1fr 1fr;box-shadow:0 50px 120px rgba(0,0,0,.95);position:relative}
+.m-imgside{background:#0a0a12;border-radius:26px 0 0 26px;display:flex;align-items:center;justify-content:center;padding:40px;min-height:340px;position:relative;overflow:hidden}.m-imgside::after{content:'';position:absolute;bottom:-40px;left:50%;transform:translateX(-50%);width:65%;height:90px;background:radial-gradient(ellipse,rgba(240,165,0,.22),transparent 70%)}.m-imgside img{max-width:100%;max-height:300px;object-fit:contain;filter:drop-shadow(0 20px 55px rgba(240,165,0,.18));position:relative;z-index:1}
+.m-info{padding:40px 34px}.m-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);width:36px;height:36px;border-radius:50%;font-size:.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .22s}.m-close:hover{background:var(--red);color:#fff}
+.m-brand{font-size:.68rem;color:var(--gold);text-transform:uppercase;letter-spacing:3px;font-weight:700;margin-bottom:8px}.m-name{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:1.9rem;letter-spacing:1px;line-height:1.1;margin-bottom:14px}.m-price{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:2.3rem;color:var(--gold);letter-spacing:2px;margin-bottom:14px}
+.m-war{display:flex;align-items:center;gap:9px;background:rgba(240,165,0,.07);border:1px solid rgba(240,165,0,.2);border-radius:10px;padding:10px 14px;font-size:.78rem;color:var(--gold);margin-bottom:22px}
+.m-specs{display:flex;flex-direction:column;gap:9px;margin-bottom:26px}.msp{display:flex;align-items:flex-start;gap:10px;font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.5}.msp::before{content:'◆';color:var(--gold);font-size:.45rem;margin-top:6px;flex-shrink:0}
+.m-btns{display:flex;flex-direction:column;gap:10px}.m-wa{background:var(--gold);color:#000;padding:13px;border-radius:11px;font-family:'Bebas Neue','Arial Black',sans-serif;font-size:1.05rem;letter-spacing:1.5px;border:none;cursor:pointer;transition:all .25s}.m-wa:hover{background:var(--gold2)}.m-call{background:rgba(255,255,255,.05);color:rgba(255,255,255,.65);padding:13px;border-radius:11px;font-family:'Bebas Neue','Arial Black',sans-serif;font-size:.95rem;letter-spacing:1px;border:1px solid var(--border);cursor:pointer;transition:all .25s}.m-call:hover{border-color:var(--gold);color:var(--gold)}
+#cdbg{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:3500;display:none;backdrop-filter:blur(6px)}#cdbg.show{display:block}
+#cdraw{position:fixed;right:-400px;top:0;bottom:0;width:375px;background:linear-gradient(180deg,#0f0f1c,#0a0a14);border-left:1px solid var(--border);z-index:4000;transition:right .42s cubic-bezier(.23,1,.32,1);display:flex;flex-direction:column}#cdraw.open{right:0;box-shadow:-20px 0 70px rgba(0,0,0,.9)}
+.cd-head{display:flex;align-items:center;justify-content:space-between;padding:24px;border-bottom:1px solid var(--border)}.cd-title{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:1.3rem;letter-spacing:2.5px}.cd-close{background:none;border:1px solid var(--border);color:rgba(255,255,255,.4);width:33px;height:33px;border-radius:50%;font-size:.88rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}.cd-close:hover{background:var(--red);color:#fff}
+.cd-items{flex:1;overflow-y:auto;padding:14px}.cd-empty{height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:rgba(255,255,255,.18)}.cd-empty span:first-child{font-size:2.8rem;opacity:.25}
+.ci{display:flex;gap:13px;align-items:center;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:14px;padding:13px;margin-bottom:9px}.ci-img{width:52px;height:52px;background:#111;border-radius:9px;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center}.ci-img img{width:100%;height:100%;object-fit:contain;padding:4px}.ci-nm{font-size:.82rem;font-weight:600;line-height:1.3}.ci-pr{font-size:.78rem;color:var(--gold);font-weight:700;margin-top:3px}.ci-rm{background:none;border:none;color:rgba(255,255,255,.25);cursor:pointer;font-size:.78rem;transition:color .2s;flex-shrink:0}.ci-rm:hover{color:var(--red)}
+.cd-foot{padding:20px 24px;border-top:1px solid var(--border)}.cd-tot{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.cd-tot span:first-child{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px}.cd-tot span:last-child{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:1.4rem;color:var(--gold)}
+.cd-wa{width:100%;background:var(--gold);color:#000;padding:14px;border-radius:11px;font-family:'Bebas Neue','Arial Black',sans-serif;font-size:1rem;letter-spacing:2px;border:none;cursor:pointer;transition:all .25s}.cd-wa:hover{background:var(--gold2)}
+footer{position:relative;z-index:1;background:#040408;border-top:1px solid var(--border);padding:60px 5% 30px}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:56px;margin-bottom:48px}
+.foot-logo{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:2rem;letter-spacing:4px;margin-bottom:14px}.foot-logo span{color:var(--gold)}
+.foot-desc{color:rgba(255,255,255,.28);font-size:.86rem;line-height:1.85;max-width:280px;font-weight:300}
+.foot-col h4{font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:16px}.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:11px}.foot-col ul a{color:rgba(255,255,255,.3);text-decoration:none;font-size:.86rem;transition:color .22s}.foot-col ul a:hover{color:var(--white)}
+.foot-bot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);padding-top:22px;flex-wrap:wrap;gap:12px}.foot-copy{color:rgba(255,255,255,.18);font-size:.76rem}.foot-badges{display:flex;gap:9px}.foot-badge{background:rgba(255,255,255,.03);border:1px solid var(--border);padding:5px 12px;border-radius:7px;font-size:.68rem;color:rgba(255,255,255,.25)}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(22px);background:rgba(240,165,0,.12);border:1px solid rgba(240,165,0,.4);color:var(--white);padding:12px 26px;border-radius:100px;font-size:.86rem;font-weight:500;opacity:0;transition:all .35s;z-index:9000;pointer-events:none;backdrop-filter:blur(20px);white-space:nowrap}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.rv{opacity:0;transform:translateY(32px);transition:opacity .7s cubic-bezier(.23,1,.32,1),transform .7s cubic-bezier(.23,1,.32,1)}.rv.in{opacity:1;transform:translateY(0)}.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}.rv.d4{transition-delay:.32s}
+@media(max-width:960px){.hero-3d{display:none}.cat-grid{grid-template-columns:1fr 1fr}.feats-grid{grid-template-columns:1fr 1fr}.cgrid{grid-template-columns:1fr}.foot-grid{grid-template-columns:1fr}.nav-links{display:none}.mbox{grid-template-columns:1fr}.m-imgside{border-radius:26px 26px 0 0;min-height:200px}}
+@media(max-width:500px){.fg2-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+<canvas id="bgc"></canvas>
+
+<nav>
+  <a class="logo" href="#">ANJARWALA<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#cats">Categories</a></li>
+    <li><a href="#prods">Products</a></li>
+    <li><a href="#feats">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-r">
+    <button class="cart-btn" onclick="openCart()">🛒 Cart <span class="cbadge" id="cNum">0</span></button>
+    <a class="wa-btn" href="https://wa.me/923352133447" target="_blank">WhatsApp</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="h-tag"><span class="h-dot"></span>Karachi, Sindh · Open Now</div>
+    <h1><span class="h1a">KARACHI'S</span><span class="h1b">PREMIER</span><span class="h1c">SUPERMART</span></h1>
+    <p class="h-sub">Laptops, monitors, smart cameras, accessories & more — all genuine, all warrantied, delivered to your door across Karachi.</p>
+    <div class="h-btns">
+      <a href="#prods" class="btn-gold">Shop Now</a>
+      <a href="#contact" class="btn-ghost">Get a Quote</a>
+    </div>
+    <div class="h-stats">
+      <div class="hstat"><div class="hstat-n">4.8★</div><div class="hstat-l">Google Rating</div></div>
+      <div class="hstat"><div class="hstat-n">500+</div><div class="hstat-l">Products</div></div>
+      <div class="hstat"><div class="hstat-n">1YR</div><div class="hstat-l">Warranty</div></div>
+      <div class="hstat"><div class="hstat-n">COD</div><div class="hstat-l">Available</div></div>
+    </div>
+  </div>
+  <div class="hero-3d">
+    <div class="scene">
+      <div class="fcard-glow"></div>
+      <div class="fcard fcard-2"><img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&q=80" alt=""/></div>
+      <div class="fcard fcard-1"><img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&q=80" alt=""/></div>
+      <div class="fcard fcard-3"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" alt=""/></div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="t-track">
+    <span>Free Consultation</span><span>1 Year Warranty</span><span>Cash on Delivery</span><span>EZVIZ Authorized Dealer</span><span>Smart Home Experts</span><span>Google Assistant</span><span>Amazon Alexa</span><span>WiWU Official Partner</span><span>Open 7 Days</span>
+    <span>Free Consultation</span><span>1 Year Warranty</span><span>Cash on Delivery</span><span>EZVIZ Authorized Dealer</span><span>Smart Home Experts</span><span>Google Assistant</span><span>Amazon Alexa</span><span>WiWU Official Partner</span><span>Open 7 Days</span>
+  </div>
+</div>
+
+<section class="cats-sec rv" id="cats">
+  <div class="sec-head"><div><div class="slbl">Browse by Type</div><div class="stit">Categories</div></div></div>
+  <div class="cat-grid">
+    <div class="cat-card rv d1" onclick="filterP('Laptop')"><img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=700&q=80" alt=""/><div class="cat-ov"><div class="cat-name">Laptops</div><div class="cat-sub">HP · Dell · Lenovo · Acer</div></div><div class="cat-arr">→</div></div>
+    <div class="cat-card rv d2" onclick="filterP('Monitor')"><img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=700&q=80" alt=""/><div class="cat-ov"><div class="cat-name">Monitors</div><div class="cat-sub">Samsung · LG · AOC · Dell</div></div><div class="cat-arr">→</div></div>
+    <div class="cat-card rv d3" onclick="filterP('Smart Home')"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" alt=""/><div class="cat-ov"><div class="cat-name">Smart Home</div><div class="cat-sub">EZVIZ · Alexa · Google</div></div><div class="cat-arr">→</div></div>
+    <div class="cat-card rv d4" onclick="filterP('Peripheral')"><img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=700&q=80" alt=""/><div class="cat-ov"><div class="cat-name">Peripherals</div><div class="cat-sub">Logitech · Keyboards · Mice</div></div><div class="cat-arr">→</div></div>
+  </div>
+</section>
+
+<div class="feats-sec rv" id="feats">
+  <div class="feats-grid">
+    <div class="feat rv d1"><div class="feat-ico">🛡️</div><div class="feat-t">1 Year Warranty</div><div class="feat-d">Every product is fully covered. No-questions-asked repairs within the warranty period.</div></div>
+    <div class="feat rv d2"><div class="feat-ico">💵</div><div class="feat-t">Cash on Delivery</div><div class="feat-d">Order online, pay when it arrives. Zero risk, complete peace of mind.</div></div>
+    <div class="feat rv d3"><div class="feat-ico">🤖</div><div class="feat-t">Smart Integration</div><div class="feat-d">Google Assistant, Alexa & IFTTT ready smart home products.</div></div>
+    <div class="feat rv d4"><div class="feat-ico">📞</div><div class="feat-t">24 / 7 Support</div><div class="feat-d">Call or WhatsApp us anytime. Real people, real answers.</div></div>
+  </div>
+</div>
+
+<section class="prods-sec rv" id="prods">
+  <div class="sec-head"><div><div class="slbl">Our Inventory</div><div class="stit">Featured Products</div><div class="ssub">Genuine brands, real warranty, best prices in Karachi.</div></div></div>
+  <div class="frow">
+    <button class="ftag on" onclick="filterP('all',this)">All</button>
+    <button class="ftag" onclick="filterP('Laptop',this)">💻 Laptops</button>
+    <button class="ftag" onclick="filterP('Monitor',this)">🖥️ Monitors</button>
+    <button class="ftag" onclick="filterP('Smart Home',this)">📷 Smart Home</button>
+    <button class="ftag" onclick="filterP('Peripheral',this)">⌨️ Peripherals</button>
+    <button class="ftag" onclick="filterP('Storage',this)">💾 Storage</button>
+    <button class="ftag" onclick="filterP('Power Bank',this)">🔋 Power Banks</button>
+    <button class="ftag" onclick="filterP('Networking',this)">📡 Networking</button>
+  </div>
+  <div class="pgrid" id="pgrid"></div>
+</section>
+
+<section class="brands-sec rv">
+  <div class="sec-head"><div><div class="slbl">Trusted Names</div><div class="stit">Brands We Carry</div></div></div>
+  <div class="brand-wrap">
+    <div class="bchip">HP</div><div class="bchip">Dell</div><div class="bchip">Lenovo</div><div class="bchip">Acer</div><div class="bchip">Samsung</div><div class="bchip">LG</div><div class="bchip">Logitech</div><div class="bchip">EZVIZ</div><div class="bchip">WiWU</div><div class="bchip">Anker</div><div class="bchip">TP-Link</div><div class="bchip">Seagate</div><div class="bchip">Kingston</div><div class="bchip">Western Digital</div>
+  </div>
+</section>
+
+<section class="contact-sec rv" id="contact">
+  <div class="sec-head"><div><div class="slbl">Reach Us</div><div class="stit">Get in Touch</div></div></div>
+  <div class="cgrid">
+    <div>
+      <div class="ci-item"><div class="ci-lbl">📍 Address</div><div class="ci-val">Karachi, Sindh, Pakistan</div></div>
+      <div class="ci-item"><div class="ci-lbl">📞 Phone / WhatsApp</div><div class="ci-val">03352133447</div></div>
+      <div class="ci-item"><div class="ci-lbl">✉️ Email</div><div class="ci-val">shabbir8899442@gmail.com</div></div>
+      <div class="ci-item"><div class="ci-lbl">🕐 Hours</div><div class="ci-val">Mon–Sat: 10:00 AM – 9:00 PM<br/>Sunday: 12:00 PM – 6:00 PM</div></div>
+    </div>
+    <div class="cform-wrap">
+      <div class="cform-t">Send an Enquiry</div>
+      <div class="fg2-row">
+        <div class="fgrp"><label>Name</label><input id="inp-name" type="text" placeholder="Your name"/></div>
+        <div class="fgrp"><label>WhatsApp</label><input id="inp-phone" type="tel" placeholder="03xx xxxxxxx"/></div>
+      </div>
+      <div class="fgrp"><label>I'm Looking For</label><select id="inp-cat"><option value="">Select category...</option><option>Laptops</option><option>Monitors</option><option>Smart Home / EZVIZ Cameras</option><option>Peripherals</option><option>Storage</option><option>Power Banks</option><option>Networking</option><option>Other</option></select></div>
+      <div class="fgrp"><label>Message</label><textarea id="inp-msg" rows="4" placeholder="Budget, brand, questions..."></textarea></div>
+      <button class="csub" onclick="sendEnq()">💬 Send via WhatsApp</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-grid">
+    <div><div class="foot-logo">ANJARWALA<span>.</span></div><div class="foot-desc">Karachi's trusted tech supermart. Genuine products, honest prices, real support every day.</div></div>
+    <div class="foot-col"><h4>Navigation</h4><ul><li><a href="#cats">Categories</a></li><li><a href="#prods">Products</a></li><li><a href="#feats">About</a></li><li><a href="#contact">Contact</a></li></ul></div>
+    <div class="foot-col"><h4>Contact</h4><ul><li><a href="tel:03352133447">03352133447</a></li><li><a href="mailto:shabbir8899442@gmail.com">Email Us</a></li><li><a href="https://wa.me/923352133447" target="_blank">WhatsApp Us</a></li></ul></div>
+  </div>
+  <div class="foot-bot">
+    <div class="foot-copy">© 2025 Anjarwala Supermart · Karachi, Sindh, Pakistan</div>
+    <div class="foot-badges"><span class="foot-badge">🛡️ 1yr Warranty</span><span class="foot-badge">💵 COD</span><span class="foot-badge">⭐ 4.8 Google</span></div>
+  </div>
+</footer>
+
+<div id="modal-bg" onclick="closeModal(event)">
+  <div class="mbox">
+    <div class="m-imgside"><img id="mImg" src="" alt=""/></div>
+    <div class="m-info">
+      <button class="m-close" onclick="closeModalNow()">✕</button>
+      <div class="m-brand" id="mBrand"></div>
+      <div class="m-name" id="mName"></div>
+      <div class="m-price" id="mPrice"></div>
+      <div class="m-war">🛡️ Includes 1 Year Official Warranty</div>
+      <div class="m-specs" id="mSpecs"></div>
+      <div class="m-btns">
+        <button class="m-wa" id="mWaBtn">📲 Enquire on WhatsApp</button>
+        <button class="m-call" onclick="window.location.href='tel:03352133447'">📞 Call: 03352133447</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="cdbg" onclick="closeCart()"></div>
+<div id="cdraw">
+  <div class="cd-head"><div class="cd-title">Enquiry List</div><button class="cd-close" onclick="closeCart()">✕</button></div>
+  <div class="cd-items" id="cdItems"><div class="cd-empty"><span>🛒</span><span>No items yet</span></div></div>
+  <div class="cd-foot">
+    <div class="cd-tot"><span>Total Items</span><span id="cdTot">0</span></div>
+    <button class="cd-wa" onclick="sendCartWA()">💬 Send List on WhatsApp</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* CANVAS PARTICLES */
+(function(){
+  var c=document.getElementById('bgc'),ctx=c.getContext('2d'),W,H,pts=[],ang=0,mouse={x:0,y:0};
+  function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;}
+  window.addEventListener('resize',resize);resize();
+  document.addEventListener('mousemove',function(e){mouse.x=e.clientX;mouse.y=e.clientY;});
+  function P(){
+    this.init=function(r){this.x=Math.random()*W;this.y=r?Math.random()*H:H+5;this.sz=Math.random()*1.3+0.3;this.vy=-(Math.random()*0.3+0.08);this.vx=(Math.random()-0.5)*0.18;this.a=Math.random()*0.45+0.1;this.gold=Math.random()>0.78;this.tw=Math.random()*6.28;this.tws=Math.random()*0.02+0.005;};
+    this.init(true);
+    this.tick=function(){this.tw+=this.tws;this.x+=this.vx;this.y+=this.vy;var dx=this.x-mouse.x,dy=this.y-mouse.y,d=Math.sqrt(dx*dx+dy*dy);if(d<90){this.x+=dx/d*0.4;this.y+=dy/d*0.4;}if(this.y<-5||this.x<-10||this.x>W+10)this.init(false);};
+    this.draw=function(){var a=this.a*(0.6+Math.sin(this.tw)*0.4);ctx.beginPath();ctx.arc(this.x,this.y,this.sz,0,6.28);ctx.fillStyle=this.gold?'rgba(240,165,0,'+a+')':'rgba(200,200,255,'+a+')';ctx.fill();if(this.gold&&this.sz>0.8){var g=ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.sz*5);g.addColorStop(0,'rgba(240,165,0,'+(a*0.35)+')');g.addColorStop(1,'rgba(240,165,0,0)');ctx.beginPath();ctx.arc(this.x,this.y,this.sz*5,0,6.28);ctx.fillStyle=g;ctx.fill();}};
+  }
+  for(var i=0;i<200;i++){var p=new P();pts.push(p);}
+  var scanY=0;
+  function loop(){
+    requestAnimationFrame(loop);
+    ctx.clearRect(0,0,W,H);
+    scanY=(scanY+0.5)%H;
+    var sg=ctx.createLinearGradient(0,scanY-40,0,scanY+40);
+    sg.addColorStop(0,'rgba(240,165,0,0)');sg.addColorStop(0.5,'rgba(240,165,0,.02)');sg.addColorStop(1,'rgba(240,165,0,0)');
+    ctx.fillStyle=sg;ctx.fillRect(0,scanY-40,W,80);
+    ang+=0.003;
+    [[W*.75,H*.25,110],[W*.12,H*.7,80],[W*.88,H*.75,65]].forEach(function(rg,i){
+      var a=ang*(i%2===0?1:-1);ctx.beginPath();
+      for(var s=0;s<=6;s++){var an=(s/6)*6.28+a;ctx.lineTo(rg[0]+Math.cos(an)*rg[2],rg[1]+Math.sin(an)*rg[2]);}
+      ctx.closePath();ctx.strokeStyle='rgba(240,165,0,.06)';ctx.lineWidth=1.2;ctx.stroke();
+    });
+    for(var p=0;p<pts.length;p++){for(var q=p+1;q<pts.length;q++){var dx=pts[p].x-pts[q].x,dy=pts[p].y-pts[q].y,d=Math.sqrt(dx*dx+dy*dy);if(d<120){ctx.beginPath();ctx.moveTo(pts[p].x,pts[p].y);ctx.lineTo(pts[q].x,pts[q].y);ctx.strokeStyle='rgba(240,165,0,'+(0.03*(1-d/120))+')';ctx.lineWidth=0.5;ctx.stroke();}}}
+    pts.forEach(function(p){p.tick();p.draw();});
+  }
+  loop();
+})();
+
+/* CURSOR */
+var cur=document.getElementById('cur'),ring=document.getElementById('cur-ring'),rx=0,ry=0,tx=0,ty=0;
+document.addEventListener('mousemove',function(e){tx=e.clientX;ty=e.clientY;cur.style.left=tx+'px';cur.style.top=ty+'px';});
+(function a(){requestAnimationFrame(a);rx+=(tx-rx)*.13;ry+=(ty-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';})();
+document.querySelectorAll('a,button,.pcard,.cat-card,.bchip').forEach(function(el){
+  el.addEventListener('mouseenter',function(){cur.style.transform='translate(-50%,-50%) scale(2.5)';ring.style.width='52px';ring.style.height='52px';ring.style.borderColor='rgba(240,165,0,.9)';});
+  el.addEventListener('mouseleave',function(){cur.style.transform='translate(-50%,-50%) scale(1)';ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='rgba(240,165,0,.5)';});
+});
+
+/* 3D TILT */
+document.addEventListener('mousemove',function(e){
+  document.querySelectorAll('.pcard').forEach(function(card){
+    var r=card.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
+    var dx=(e.clientX-cx)/(r.width*.5),dy=(e.clientY-cy)/(r.height*.5),dist=Math.sqrt(dx*dx+dy*dy);
+    if(dist<1.4){card.style.transform='perspective(700px) rotateY('+dx*12+'deg) rotateX('+(-dy*10)+'deg) translateZ(10px) scale(1.02)';card.style.setProperty('--mx',(((e.clientX-r.left)/r.width)*100)+'%');card.style.setProperty('--my',(((e.clientY-r.top)/r.height)*100)+'%');}
+    else{card.style.transform='';}
+  });
+});
+
+/* PRODUCTS */
+var PRODS=[
+  {id:1,cat:'Laptop',brand:'HP',name:'HP Laptop 15s-fq5000',price:89000,badge:'New',img:'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&q=80',specs:['Intel Core i5-1235U 12th Gen','8GB DDR4 RAM · 512GB NVMe SSD','15.6" FHD IPS 1920×1080','Windows 11 Home Pre-installed','1 Year HP Official Warranty']},
+  {id:2,cat:'Laptop',brand:'Dell',name:'Dell Inspiron 15 3520',price:145000,badge:'Hot',img:'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=600&q=80',specs:['Intel Core i7-1255U · 16GB RAM','1TB SSD Storage','15.6" FHD Anti-Glare Display','Backlit Keyboard + Fingerprint Reader','1 Year Dell ProSupport']},
+  {id:3,cat:'Laptop',brand:'Lenovo',name:'Lenovo IdeaPad Slim 3',price:72000,badge:'Sale',img:'https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=600&q=80',specs:['AMD Ryzen 5 7520U Processor','8GB LPDDR5 · 512GB SSD','15.6" FHD Display','Ultra-slim 17.9mm · 1.46kg','1 Year Lenovo Warranty']},
+  {id:4,cat:'Monitor',brand:'Samsung',name:'Samsung S3 24" FHD',price:28500,badge:null,img:'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&q=80',specs:['1920×1080 FHD IPS Panel','75Hz · 5ms Response Time','HDMI + VGA Dual Input','Eye Saver & Flicker Free','VESA 75×75 Wall Mount']},
+  {id:5,cat:'Monitor',brand:'LG',name:'LG 27" 4K UHD IPS',price:72000,badge:'New',img:'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&q=80',specs:['3840×2160 4K UHD IPS','HDR10 · DCI-P3 95% Colour','USB-C 60W Power Delivery','AMD FreeSync Premium','Height/Tilt/Pivot Stand']},
+  {id:6,cat:'Smart Home',brand:'EZVIZ',name:'EZVIZ C6N Pan & Tilt',price:10500,badge:'Best Seller',img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',specs:['1080p Full HD · 360° Pan/Tilt','Night Vision up to 10m','MicroSD up to 512GB','EZVIZ Cloud Supported','Google Assistant & Alexa']},
+  {id:7,cat:'Smart Home',brand:'EZVIZ',name:'EZVIZ H3C 2K Outdoor',price:14500,badge:'New',img:'https://images.unsplash.com/photo-1555664424-778a1e5e1b48?w=600&q=80',specs:['2K 4MP · Colour Night Vision','IP67 Weatherproof','IFTTT Automation Ready','MicroSD + Cloud Storage','120° Wide-Angle Lens']},
+  {id:8,cat:'Peripheral',brand:'Logitech',name:'Logitech MX Master 3S',price:14000,badge:'Hot',img:'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=600&q=80',specs:['8000 DPI MagSpeed Scroll','Bluetooth + 2.4GHz USB','Works on Glass Surfaces','3-Device Multi-pairing','70-Day Battery · USB-C']},
+  {id:9,cat:'Peripheral',brand:'Mechanical',name:'RGB Mechanical Keyboard TKL',price:6500,badge:null,img:'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&q=80',specs:['Blue Tactile Switches','Full RGB Per-Key Backlight','TKL Compact Layout','Anti-Ghost N-Key Rollover','Aluminium Frame + Braided Cable']},
+  {id:10,cat:'Storage',brand:'Samsung',name:'Samsung 870 EVO 512GB',price:9500,badge:null,img:'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=600&q=80',specs:['512GB SATA III 2.5"','Read 560 MB/s · Write 530 MB/s','Samsung V-NAND Technology','5 Year Limited Warranty','Fits Laptops & Desktops']},
+  {id:11,cat:'Storage',brand:'Kingston',name:'Kingston MicroSD 512GB',price:4200,badge:'New',img:'https://images.unsplash.com/photo-1601737487795-dab272f52420?w=600&q=80',specs:['512GB UHS-I Class 10 A2','Read 170 MB/s · Write 90 MB/s','Perfect for EZVIZ Cameras','Includes SD Adapter','Lifetime Kingston Warranty']},
+  {id:12,cat:'Power Bank',brand:'WiWU',name:'WiWU Galaxy 20000mAh',price:5500,badge:'New',img:'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=600&q=80',specs:['20,000mAh Li-Polymer','USB-C PD 22.5W Fast Charge','Dual USB-A Outputs','LED Battery Indicator','Over-Charge Protection']},
+  {id:13,cat:'Power Bank',brand:'Anker',name:'Anker PowerCore Slim 10K',price:3800,badge:null,img:'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=600&q=80',specs:['10,000mAh Ultra-Slim','PowerIQ 2.0 Fast Charging','12W Max Output','Weight: 180g Pocket Size','18-Month Anker Warranty']},
+  {id:14,cat:'Networking',brand:'TP-Link',name:'TP-Link Archer AX3000',price:18500,badge:'New',img:'https://images.unsplash.com/photo-1606904825846-647eb07f5be2?w=600&q=80',specs:['Wi-Fi 6 AX3000 Speed','2.4GHz + 5GHz Dual Band','4 High-Gain Antennas','MU-MIMO · OFDMA','Alexa & Google Assistant']}
+];
+var cart=[];
+
+function renderProds(filter){
+  var g=document.getElementById('pgrid');
+  var items=filter==='all'?PRODS:PRODS.filter(function(p){return p.cat===filter;});
+  g.innerHTML=items.map(function(p){
+    var b=p.badge?'<span class="pbadge '+p.badge.toLowerCase().replace(/\s+/g,'-')+'">'+p.badge+'</span>':'';
+    return '<div class="pcard" onclick="openModal('+p.id+')">'
+      +'<div class="pimg"><img src="'+p.img+'" alt="'+p.name+'" loading="lazy"/><div class="pimg-glow"></div><div class="pbadges">'+b+'</div></div>'
+      +'<div class="pbody"><div class="pbrand">'+p.brand+'</div><div class="pname">'+p.name+'</div>'
+      +'<div class="pspec">'+p.specs.slice(0,2).join(' · ')+'</div>'
+      +'<div class="pfoot"><div class="pprice"><span class="rs">Rs.</span>'+p.price.toLocaleString()+'</div>'
+      +'<button class="padd" onclick="event.stopPropagation();addCart('+p.id+')">+ Add</button>'
+      +'</div></div></div>';
+  }).join('');
+}
+renderProds('all');
+
+function filterP(cat,btn){
+  renderProds(cat);
+  document.querySelectorAll('.ftag').forEach(function(b){b.classList.remove('on');});
+  if(btn)btn.classList.add('on');
+  document.getElementById('prods').scrollIntoView({behavior:'smooth'});
+}
+
+function openModal(id){
+  var p=PRODS.find(function(x){return x.id===id;});if(!p)return;
+  document.getElementById('mImg').src=p.img;
+  document.getElementById('mBrand').textContent=p.brand;
+  document.getElementById('mName').textContent=p.name;
+  document.getElementById('mPrice').textContent='Rs. '+p.price.toLocaleString();
+  document.getElementById('mSpecs').innerHTML=p.specs.map(function(s){return '<div class="msp"><span>'+s+'</span></div>';}).join('');
+  var msg=encodeURIComponent('Hi Anjarwala Supermart!\nI\'m interested in: '+p.name+'\nPrice: Rs. '+p.price.toLocaleString()+'\nPlease confirm availability.');
+  document.getElementById('mWaBtn').onclick=function(){window.open('https://wa.me/923352133447?text='+msg,'_blank');};
+  document.getElementById('modal-bg').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(e){if(e.target===document.getElementById('modal-bg'))closeModalNow();}
+function closeModalNow(){document.getElementById('modal-bg').classList.remove('open');document.body.style.overflow='';}
+
+function addCart(id){
+  var p=PRODS.find(function(x){return x.id===id;});if(!p)return;
+  if(!cart.find(function(x){return x.id===id;}))cart.push(p);
+  updateCart();showToast('Added: '+p.name);
+}
+function removeCart(id){cart=cart.filter(function(p){return p.id!==id;});updateCart();}
+function updateCart(){
+  document.getElementById('cNum').textContent=cart.length;
+  document.getElementById('cdTot').textContent=cart.length;
+  var el=document.getElementById('cdItems');
+  if(!cart.length){el.innerHTML='<div class="cd-empty"><span>🛒</span><span>No items yet</span></div>';return;}
+  el.innerHTML=cart.map(function(p){return '<div class="ci"><div class="ci-img"><img src="'+p.img+'" alt="'+p.name+'"/></div><div style="flex:1"><div class="ci-nm">'+p.name+'</div><div class="ci-pr">Rs. '+p.price.toLocaleString()+'</div></div><button class="ci-rm" onclick="removeCart('+p.id+')">✕</button></div>';}).join('');
+}
+function openCart(){document.getElementById('cdraw').classList.add('open');document.getElementById('cdbg').classList.add('show');document.body.style.overflow='hidden';}
+function closeCart(){document.getElementById('cdraw').classList.remove('open');document.getElementById('cdbg').classList.remove('show');document.body.style.overflow='';}
+function sendCartWA(){
+  if(!cart.length){showToast('Add products first!');return;}
+  var list=cart.map(function(p){return '• '+p.name+' — Rs. '+p.price.toLocaleString();}).join('\n');
+  window.open('https://wa.me/923352133447?text='+encodeURIComponent('Hi Anjarwala Supermart!\n\nI want:\n\n'+list+'\n\nPlease confirm availability.'),'_blank');
+}
+function sendEnq(){
+  var n=document.getElementById('inp-name').value.trim();
+  var p=document.getElementById('inp-phone').value.trim();
+  var c=document.getElementById('inp-cat').value;
+  var m=document.getElementById('inp-msg').value.trim();
+  if(!n||!p){showToast('Please enter name and phone');return;}
+  window.open('https://wa.me/923352133447?text='+encodeURIComponent('Hi Anjarwala Supermart!\n\nName: '+n+'\nPhone: '+p+'\nLooking for: '+(c||'General')+'\n\n'+m),'_blank');
+  showToast('Opening WhatsApp...');
+}
+function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2800);}
+
+/* SCROLL REVEAL — bulletproof */
+(function(){
+  function showAll(){document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in');});}
+  try{
+    var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('in');});},{threshold:0,rootMargin:'0px 0px -10px 0px'});
+    document.querySelectorAll('.rv').forEach(function(el){obs.observe(el);});
+    setTimeout(function(){if(document.querySelectorAll('.rv:not(.in)').length>2)showAll();},700);
+  }catch(e){showAll();}
+  setTimeout(showAll,1500);
+})();
+</script>
+</body>
+</html>
